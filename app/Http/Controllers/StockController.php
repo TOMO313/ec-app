@@ -12,4 +12,11 @@ class StockController extends Controller
         $stocks = Stock::orderBy('updated_at', 'DESC')->paginate(1);
         return view('stocks.index', ["stocks" => $stocks]);
     }
+    
+    public function store(Request $request, Stock $stock)
+    {
+        $user = auth()->user();
+        $stock->users()->syncWithoutDetaching($user->id);
+        return view('stocks.mycart', ["user" => $user]);
+    }
 }

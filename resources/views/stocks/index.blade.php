@@ -6,9 +6,17 @@
                 @foreach($stocks as $stock)
                         <div class="mycart_box text-center rounded shadow-lg bg-white p-6">
                             {{$stock->name}} <br>
-                            {{$stock->fee}}円<br>
                             <img src="/image/{{$stock->imagePath}}" alt="" class="incart" ><br>
                             {{$stock->explain}}<br>
+                            {{$stock->fee}}円<br>
+                            残り{{$stock->stock_count}}個<br>
+                            <div class="p-6">
+                                <form action="/store/{{$stock->id}}" method="POST">
+                                    @csrf
+                                    購入数量：<input type="number" name="buyCount" min="1" max="{{$stock->stock_count}}" value="1"/><br>
+                                    <button class="rounded bg-blue-200 hover:bg-blue-400 mt-6" type="submit">カートに追加</button>
+                                </form>
+                            </div>
                         </div>
                 @endforeach
             </div>

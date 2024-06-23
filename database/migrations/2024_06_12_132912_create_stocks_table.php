@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', '100');
             $table->string('explain', '500');
             $table->integer('fee');
+            $table->integer('stock_count');
             $table->string('image_path', '200');
             $table->timestamps();
         });
