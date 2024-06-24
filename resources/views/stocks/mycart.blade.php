@@ -8,6 +8,7 @@
                             <img src="/image/{{$stock->imagePath}}" alt="" class="incart" ><br>
                             {{$stock->explain}}<br>
                             {{$stock->fee}}円<br>
+                            購入数量：{{$stock->pivot->buy_count}}
                         </div>
                 @endforeach
             </div>

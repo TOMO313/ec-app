@@ -16,7 +16,13 @@ class StockController extends Controller
     public function store(Request $request, Stock $stock)
     {
         $user = auth()->user();
-        $stock->users()->syncWithoutDetaching($user->id);
+        $buyCount = $request->input('buyCount');
+
+        $stock->users()->attach($user->id, ['buy_count' => $buyCount]);
+
+        $stock->stock_count -= $buyCount;
+        $stock->save();
+
         return view('stocks.mycart', ["user" => $user]);
     }
 }

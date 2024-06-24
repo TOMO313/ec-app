@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('stock_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->integer('buy_count');
             $table->timestamps();
         });
     }
