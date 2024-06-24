@@ -47,6 +47,6 @@ class User extends Authenticatable
 
     public function stocks()
     {
-        return $this->belongsToMany(Stock::class);
+        return $this->belongsToMany(Stock::class)->withPivot('buy_count');
     }
 }
