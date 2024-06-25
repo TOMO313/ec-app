@@ -11,6 +11,6 @@ class Stock extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('buy_count');
     }
 }

@@ -18,11 +18,22 @@ class StockController extends Controller
         $user = auth()->user();
         $buyCount = $request->input('buyCount');
 
-        $stock->users()->attach($user->id, ['buy_count' => $buyCount]);
-
+        //在庫数から購入数を減算&保存
         $stock->stock_count -= $buyCount;
         $stock->save();
 
+        $buyStocks = Stock::whereHas('users', function($query) use($stock, $user){
+            $query->where('stock_user.stock_id', $stock->id)
+                  ->where('stock_user.user_id', $user->id);
+        })->first();
+
+        if(isset($buyStocks)){
+            $currentInfo = $stock->users($user->id)->first()->pivot->buy_count;
+            $stock->users()->updateExistingPivot($user->id, ['buy_count' => $currentInfo + $buyCount]);
+        }else{
+            $stock->users()->attach($user->id, ['buy_count' => $buyCount]);
+        }
+        
         return view('stocks.mycart', ["user" => $user]);
     }
 }
