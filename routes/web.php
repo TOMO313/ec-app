@@ -12,7 +12,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(StockController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('dashboard');
-    Route::post('/store/{stock}', 'store')->name('store');
+    Route::post('/store/{stock}', 'store');
 });
 
 require __DIR__.'/auth.php';
