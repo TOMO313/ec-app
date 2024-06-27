@@ -15,18 +15,34 @@
                             </div>
                         </div>
                     @else
-                        <div class="mycart_box text-center rounded shadow-lg bg-white p-6">
-                            {{$stock->name}} <br>
-                            <img src="/image/{{$stock->imagePath}}" alt="" class="incart" ><br>
-                            {{$stock->explain}}<br>
-                            {{$stock->fee}}円<br>
-                            残り{{$stock->stock_count}}個<br>
+                        <div class="text-center rounded shadow-lg bg-white p-6">
+                            <img src="{{ $stock->image_path }}" alt="画像がありません"><br>
+                            <h2>{{$stock->name}}</h2><br>
+                            <button class="stock rounded bg-blue-200 hover:bg-blue-400 m-6"
+                                    data-stock='{{ json_encode([
+                                        "id" => $stock->id, 
+                                        "name"=> $stock->name, 
+                                        "image_path" => $stock->image_path,
+                                        "explain" => $stock->explain, 
+                                        "fee" => $stock->fee, 
+                                        "stock_count" => $stock->stock_count,    
+                                    ]) }}'>
+                                    商品詳細を開く
+                            </button>
                             <div class="p-6">
                                 <form action="/store/{{$stock->id}}" method="POST">
                                     @csrf
                                     購入数量：<input type="number" name="buyCount" min="1" max="{{$stock->stock_count}}" value="1"/><br>
                                     <button class="rounded bg-blue-200 hover:bg-blue-400 mt-6" type="submit">カートに追加</button>
                                 </form>
+                            </div>
+                            <div id="popup">
+                                <h2 id="stock-name"></h2>
+                                <img id="stock-image" src="" alt="画像がありません">
+                                <p id="stock-explain"></p>
+                                <p id="stock-fee"></p>
+                                <p id="stock-count"></p>
+                                <button class="rounded bg-blue-200 hover:bg-blue-400 m-6" id="close">商品詳細を閉じる</button>
                             </div>
                         </div>    
                     @endif
@@ -37,4 +53,5 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/index.js') }}"></script>
 </x-app-layout>
