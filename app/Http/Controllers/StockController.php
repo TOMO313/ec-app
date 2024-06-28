@@ -12,11 +12,18 @@ class StockController extends Controller
         $stocks = Stock::orderBy('updated_at', 'DESC')->paginate(1);
         return view('stocks.index', ["stocks" => $stocks]);
     }
+
+    public function mycart()
+    {
+        $user = auth()->user();
+        
+        return view('stocks.mycart', ['user' => $user]);
+    }
     
     public function store(Request $request, Stock $stock)
     {
         $user = auth()->user();
-        $buyCount = $request->input('buyCount');
+        $buyCount = $request->input('buycounts');
 
         //在庫数から購入数を減算&保存
         $stock->stock_count -= $buyCount;
@@ -34,6 +41,6 @@ class StockController extends Controller
             $stock->users()->attach($user->id, ['buy_count' => $buyCount]);
         }
         
-        return view('stocks.mycart', ["user" => $user]);
+        return response()->json(['redirect_url' => route('mycart'), 'message' => 'カートに追加されました！']);
     }
 }
