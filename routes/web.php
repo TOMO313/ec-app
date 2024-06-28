@@ -12,6 +12,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(StockController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('dashboard');
+    Route::get('/mycart', 'mycart')->name('mycart');
     Route::post('/store/{stock}', 'store');
 });
 
