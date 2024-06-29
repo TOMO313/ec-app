@@ -13,6 +13,7 @@ Route::middleware('auth')->group(function () {
 Route::controller(StockController::class)->middleware(['auth'])->group(function(){
     Route::get('/', 'index')->name('dashboard');
     Route::get('/mycart', 'mycart')->name('mycart');
+    Route::get('/search', 'search');
     Route::post('/store/{stock}', 'store');
 });
 

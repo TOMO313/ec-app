@@ -4,6 +4,15 @@
     </x-slot>
     <div class="container-fluid">
         <div class="mx-auto" style="max-width:1200px">
+            <form action="/search" method='GET'>
+                @csrf
+                <div class="flex items-center justify-center">
+                    <input class="m-5" type="text" name="keyword" value="{{ request('keyword') }}"/>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button class="rounded bg-blue-200 hover:bg-blue-400" type="submit">検索</button>
+                </div>
+            </form>
             <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">商品一覧</h1>
             <div class="grid grid-cols-4 gap-4 flex-wrap">
                 @foreach($stocks as $stock)

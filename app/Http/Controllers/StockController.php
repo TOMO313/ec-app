@@ -13,6 +13,17 @@ class StockController extends Controller
         return view('stocks.index', ["stocks" => $stocks]);
     }
 
+    public function search(Request $request)
+    {
+        if(isset($request->keyword)){
+            $stocks = Stock::where('name', 'LIKE', "%$request->keyword%")->orderBy('updated_at', 'DESC')->paginate(1)->appends(['keyword' => $request->keyword]);
+        }else{
+            $stocks = Stock::orderBy('updated_at', 'DESC')->paginate(1);
+        }
+
+        return view('stocks/index')->with(['stocks' => $stocks]);
+    }
+
     public function mycart()
     {
         $user = auth()->user();
