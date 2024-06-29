@@ -33,6 +33,15 @@ class StockSeeder extends Seeder
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
             ],
+            [
+                'name' => 'フィルムカメラ',
+                'explain' => '2000年式のカメラです',
+                'fee' => '100000',
+                'stock_count' => '8',
+                'image_path' => 'filmcamera.jpg',
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+            ],
         ];
         DB::table('stocks')->insert($stocks);
     }
