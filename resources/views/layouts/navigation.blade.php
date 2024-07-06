@@ -11,11 +11,13 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @auth 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('商品一覧') }}
                     </x-nav-link>
                 </div>
+                @endauth
             </div>
 
             <!-- Settings Dropdown -->
@@ -85,15 +87,26 @@
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
+                @auth
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
+                @endauth
+                @auth('admin')
+                <form method="POST" action="{{ route('admin.logout') }}">
+                    @csrf
+                    <x-responsive-nav-link :href="route('admin.logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+                @endauth
             </div>
         </div>
     </div>
