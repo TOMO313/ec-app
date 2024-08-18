@@ -17,14 +17,14 @@
             <div class="grid grid-cols-4 gap-4 flex-wrap">
                 @foreach($stocks as $stock)
                     @if($stock->stock_count == 0)
+                        <div class="text-red-600 text-xl">
+                                SOLD OUT
+                        </div>
                         <div class="mycart_box text-center rounded shadow-lg bg-white p-6">
                             {{$stock->name}} <br>
                             <img src="/image/{{$stock->imagePath}}" alt="" class="incart" ><br>
                             {{$stock->explain}}<br>
                             {{$stock->fee}}円<br>
-                            <div class="text-red-600 text-xl">
-                                SOLD OUT
-                            </div>
                         </div>
                     @else
                         <div class="text-center rounded shadow-lg bg-white p-6">
